@@ -1,0 +1,21 @@
+26/10/2023
+
+- Mecanismo de seleção de ação
+- Memória de aprendizagem - guarda Q(s,a)
+- Método de aprendizagem (SARSA, Q-Learning e outros)
+
+
+*** Explorar
+return choice(self.accoes)
+
+*** Ação sôfrega
+accao_Sofrega = max(self.__accoes, key=lambda a: self.mem_aprend.q(s,a))
+
+Um procedimento tem um ponto de entrada e de saída. 
+Só pode existir um return.
+Mas pode ter 2 pontos de saída.
+
+
+def seleccionar_accao(self, s):
+    return self.aproveitar(s) \ 
+    if random() > self.__epsilon else self.explorar()

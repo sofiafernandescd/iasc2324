@@ -1,7 +1,7 @@
 from .accao import Accao
 from .elemento import Elemento
 from .ambiente import Ambiente
-from .mec_aprend_ref import MecAprendRef
+from .mec_aprend import MecAprend
 
 class Agente:
     """
@@ -10,33 +10,24 @@ class Agente:
 
     def __init__(self, ambiente, mec_aprend):
         """
+        Construtor
         :param ambiente: ambiente 2D
-        :param mec_aprend: mecanismo de aprendizagem
         """
         # inicializar ambiente escolhido
         self._ambiente = ambiente
         # posição inicial do agente
-        self.posicao = self._ambiente.reiniciar()
-        # acao inicial do agente
-        self.accao = None
+        self._posicao = self._ambiente.reiniciar()
         # mecanismo de aprendizagem
         self._mec_aprend = mec_aprend
         # mostrar ambiente
-        self._ambiente.mostrar()
+        # self._ambiente.mostrar()
 
-    def executar(self, accao):
+    def executar(self):
         """
-        Actuar no ambiente
-        :param accao: acção
+        Executar um número de iterações
+        :param num_iteracoes: número de iterações
         """
-        # executar acção
-        self._ambiente.actuar(self._posicao, accao)
-        # actualizar posição
-        self._posicao = self._ambiente.observar(self._posicao)
-        # mostrar ambiente
-        self._ambiente.mostrar()
-
-  
+        pass
 
     def _gerar_reforco(self):
         """
@@ -44,7 +35,7 @@ class Agente:
         :return: reforço
         """
         # obter elemento na posição do agente
-        elemento = self.observar()
+        elemento = self._ambiente.observar(self._posicao)
         # verificar se o elemento é um alvo
         if elemento == Elemento.ALVO:
             return 1
@@ -57,3 +48,15 @@ class Agente:
     
     
 
+if __name__ == '__main__':
+
+    # criar ambiente
+    ambiente = Ambiente(2)
+
+    # criar mecanismo de aprendizagem
+    mec_aprend = MecAprend()
+
+    # criar agente
+    agente = Agente(ambiente, mec_aprend)
+
+    
