@@ -1,7 +1,4 @@
-from .accao import Accao
-from .elemento import Elemento
-from .ambiente import Ambiente
-from .mec_aprend_ref import MecAprendRef
+from elemento import Elemento
 
         
 class AgenteAprendRef():
@@ -28,16 +25,15 @@ class AgenteAprendRef():
         self.__a = None
 
 
+    
     def executar(self, num_episodios) -> list:
         """
-        Executar episódios de interação do agente com o ambiente. 
-        Durante cada episódio, o agente realiza etapas até que o episódio termine.
+        Executar episódios de interação do Agente com o Ambiente. 
+        Durante cada episódio, o Agente realiza passos até que o episódio termine.
         """
-        episodio = 0
+
         num_passos_episodio = []
-        while episodio < num_episodios:
-            # incrementar episódio
-            episodio += 1
+        for _ in range(num_episodios):
             # reiniciar posição
             self.__s = self.__ambiente.reiniciar()
             # reiniciar passos
@@ -52,7 +48,6 @@ class AgenteAprendRef():
             # guardar número de passos
             num_passos_episodio.append(num_passos)
         
-
         return num_passos_episodio
 
     def __fim_episodio(self) -> bool:
@@ -76,28 +71,32 @@ class AgenteAprendRef():
         :return: reforço
         """
         # obter estado seguinte
-        sn = self.__ambiente.observar(self.__s)
+        self.__a = self.__mec_aprend._sel_accao.seleccionar_accao(self.__s)
+        # atuar no ambiente
+        self.__ambiente.actuar(self.__a)
         # seleccionar acção seguinte
-        an = self.__mec_aprend.sel_accao.accao_sofrega(sn)
+        sn, elem = self.__ambiente.observar()
         # gerar reforço
-        r = self._gerar_reforco()
+        r = self._gerar_reforco(elem, self.__a, sn)
         # aprender
-        self.__mec_aprend.aprender(self.__s, self.__a, r, sn, an)
+        self.__mec_aprend.aprender(self.__s, self.__a, r, sn)
         # actualizar posição
         self.__s = sn
-        # actualizar acção
-        self.__a = an
        
         # devolver reforço
         return r
+    
 
-    def _gerar_reforco(self):
+
+    def _gerar_reforco(self, elem, an, sn):
         """
         Gerar reforço com base no elemento em que o Agente se encontra.
+        Se o Agente encontrar o alvo, recebe recompensa máxima.
+        Se o Agente bater num obstáculo, recebe recompensa máxima negativa.
         :return: reforço
         """
         # obter elemento na posição do agente
-        elemento = self.__ambiente.observar()
+        posicao, elemento = self.__ambiente.observar()
         # verificar se o elemento é um alvo e devolver o reforço máximo
         if elemento == Elemento.ALVO:
             return self.__r_max

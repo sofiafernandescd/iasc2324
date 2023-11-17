@@ -8,7 +8,7 @@ class SelAccao(ABC):
         self._mem_aprend = mem_aprend
     
     @abstractmethod
-    def seleccionar_acao(self, s) -> Accao:
+    def seleccionar_accao(self, s) -> Accao:
         raise NotImplementedError
     
 
@@ -27,7 +27,7 @@ class EGreedy(SelAccao):
         self._epsilon = epsilon
         
 
-    def seleccionar_acao(self, s) -> Accao:
+    def seleccionar_accao(self, s) -> Accao:
         """Selecionar entre ação exploratória ou ação sôfrega"""
 
         # escolher ação aleatória com probabilidade epsilon

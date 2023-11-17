@@ -1,6 +1,6 @@
-from .defamb import DEF_AMB
-from .accao import Accao
-from .elemento import Elemento
+from defamb import DEF_AMB
+from accao import Accao
+from elemento import Elemento
 
 class Ambiente:
     """

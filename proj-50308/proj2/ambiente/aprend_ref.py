@@ -24,7 +24,7 @@ class QLearning(AprendRef):
     def __init__(self, mem_aprend, sel_accao, alfa, gama) -> None:
         super().__init__(mem_aprend, sel_accao, alfa, gama)
 
-    def aprender(self, s, a, r, sn):
+    def aprender(self, s, a, r, sn, an=None):
         """Aprender por Q-Learning. O algoritmo envolve a seleção de uma ação,
         atualização do valor Q(s, a) e atualização da memória de aprendizagem.
         :param s: estado
@@ -47,4 +47,3 @@ class QLearning(AprendRef):
        
         return q
     
-
