@@ -32,7 +32,7 @@ class EGreedy(SelAccao):
 
         # escolher ação aleatória com probabilidade epsilon
         if random() < self._epsilon:
-            accao = self.explorar(s)
+            accao = self.explorar()
 
         # escolher ação sôfrega com probabilidade 1-epsilon
         else:

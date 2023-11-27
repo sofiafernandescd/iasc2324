@@ -16,10 +16,10 @@ class MecAprendRef():
     def __init__(self, accoes: List[Accao]) -> None:
         self.accoes = accoes
         self._mem_aprend = MemoriaAprend()
-        self._sel_accao = SelAccao(self._mem_aprend)
+        self.__sel_accao = SelAccao(self._mem_aprend)
         self._aprend_ref = AprendRef(
             self._mem_aprend, 
-            self._sel_accao, 
+            self.__sel_accao, 
             alfa = 0.1, # factor de aprendizagem
             beta = 0.9 # factor de desconto
         )

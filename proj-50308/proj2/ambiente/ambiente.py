@@ -64,6 +64,26 @@ class Ambiente:
             x -= 1
         # Mover agente se não houver colisão
         elem = self._obter_elemento((x, y))
+        if (elem != Elemento.OBSTACULO): # | (elem != Elemento.ALVO):
+            self._mover_agente((x, y))
+
+
+    def voltar(self, accao):
+        """
+        Executa uma acção no ambiente
+        :param accao: acção a ser executada
+        """
+        x, y = self._posicao_agente
+        if accao == Accao.NORTE:
+            y += 1
+        elif accao == Accao.SUL:
+            y -= 1
+        elif accao == Accao.ESTE:
+            x -= 1
+        elif accao == Accao.OESTE:
+            x += 1
+        # Mover agente se não houver colisão
+        elem = self._obter_elemento((x, y))
         if elem != Elemento.OBSTACULO:
             self._mover_agente((x, y))
 

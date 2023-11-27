@@ -1,4 +1,5 @@
 from elemento import Elemento
+from ambiente import Ambiente
 
         
 class AgenteAprendRef():
@@ -33,7 +34,7 @@ class AgenteAprendRef():
         """
 
         num_passos_episodio = []
-        for _ in range(num_episodios):
+        for episode in range(num_episodios):
             # reiniciar posição
             self.__s = self.__ambiente.reiniciar()
             # reiniciar passos
@@ -42,8 +43,16 @@ class AgenteAprendRef():
             while not self.__fim_episodio():
                 # executar passo do episódio
                 r = self.__passo_episodio()
+                #if r==self.__r_max:
+                #    print("Encontrou o alvo!")
+                #    break
                 # incrementar passos
                 num_passos += 1
+                # mostrar ambiente
+                #self.ambiente.mostrar_politica(self.__mec_aprend)
+                print("Episódio: ", episode, " Passo: ", num_passos, " Reforço: ", r) #, " Posição: ", self.__s, " Acção: ", self.__a)
+                self.__ambiente.mostrar()
+                self.__ambiente.mostrar_politica(self.__mec_aprend.obter_politica())
             
             # guardar número de passos
             num_passos_episodio.append(num_passos)
@@ -56,7 +65,7 @@ class AgenteAprendRef():
         :return: True se o episódio terminou, False caso contrário
         """
         # obter elemento na posição do agente
-        elemento = self.__ambiente.observar()
+        pos, elemento = self.__ambiente.observar()
         # verificar se o elemento é um alvo 
         if elemento == Elemento.ALVO:
             return True
@@ -71,13 +80,23 @@ class AgenteAprendRef():
         :return: reforço
         """
         # obter estado seguinte
-        self.__a = self.__mec_aprend._sel_accao.seleccionar_accao(self.__s)
+        self.__a = self.__mec_aprend.seleccionar_accao(self.__s)
         # atuar no ambiente
         self.__ambiente.actuar(self.__a)
         # seleccionar acção seguinte
         sn, elem = self.__ambiente.observar()
         # gerar reforço
-        r = self._gerar_reforco(elem, self.__a, sn)
+        r = self.__gerar_reforco(elem, self.__a, sn)
+        # verificar se o elemento é um obstáculo
+        if elem == Elemento.OBSTACULO:
+            print("Bateu num obstáculo!")
+            self.__ambiente.voltar(self.__a)
+        # verificar se o elemento é um alvo
+        elif elem == Elemento.ALVO:
+            print("Encontrou o alvo!")
+        else:
+            self.__ambiente._ambiente[self.__s[1]][self.__s[0]] = " " # limpar posição anterior
+            self.__ambiente._ambiente[sn[1]][sn[0]] = "@" # colocar agente na nova posição
         # aprender
         self.__mec_aprend.aprender(self.__s, self.__a, r, sn)
         # actualizar posição
@@ -88,20 +107,18 @@ class AgenteAprendRef():
     
 
 
-    def _gerar_reforco(self, elem, an, sn):
+    def __gerar_reforco(self, elem, a, sn):
         """
         Gerar reforço com base no elemento em que o Agente se encontra.
         Se o Agente encontrar o alvo, recebe recompensa máxima.
         Se o Agente bater num obstáculo, recebe recompensa máxima negativa.
         :return: reforço
         """
-        # obter elemento na posição do agente
-        posicao, elemento = self.__ambiente.observar()
         # verificar se o elemento é um alvo e devolver o reforço máximo
-        if elemento == Elemento.ALVO:
+        if elem == Elemento.ALVO:
             return self.__r_max
         # verificar se o elemento é um obstáculo e devolver o reforço máximo negativo
-        elif elemento == Elemento.OBSTACULO:
+        elif elem == Elemento.OBSTACULO:
             return self.__r_max * -1
         # caso contrário
         else:

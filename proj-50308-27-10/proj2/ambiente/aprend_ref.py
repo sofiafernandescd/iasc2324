@@ -9,7 +9,7 @@ class AprendRef(ABC):
         :param gama: factor de desconto
         """
         self._mem_aprend = mem_aprend
-        self._sel_accao = sel_accao
+        self.__sel_accao = sel_accao
         self._alfa = alfa
         self._gama = gama
 
