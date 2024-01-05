@@ -1,0 +1,7 @@
+class ModeloMundo2D(ModeloMundo):
+    ALVO = '+'
+    OBSTACULO = '#'
+*** atualizar(percepcao)
+self.__elementos = percepcao
+*** atualizar x_max, y_max
+self.__estados[(x,y)]

@@ -16,7 +16,3 @@ class Camada:
         
         y = np.dot(entradas, self.__pesos) + self.__pendores
         return self.__func_ativacao.aplicar(y)
-
-    #def activar(self, entradas):
-    #    y = np.dot(entradas, self.__pesos) + self.__pendores
-    #    return self.__func_ativacao.aplicar(y)

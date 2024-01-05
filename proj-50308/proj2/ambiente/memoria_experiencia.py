@@ -1,6 +1,9 @@
 import random
 
 class MemoriaExperiencia():
+    """
+    Classe que representa a memória de experiência, para realizar amostragem.
+    """
 
     def __init__(self, dim_max) -> None:
         self.__dim_max = dim_max

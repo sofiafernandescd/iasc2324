@@ -83,19 +83,6 @@ class QME(QLearning):
         :param an: próxima ação (opcional, pode ser passada como argumento ou será escolhida pela estratégia)
         :return: valor Q atualizado para o estado e ação atuais
         """
-        # Ação sofrega selecionada para o estado seguinte
-        # an = self.__sel_accao.accao_sofrega(sn)
-        # Valor Q(s, a)
-        # qsa = self._mem_aprend.q(s, a)
-        # Valor Q(s', a')
-        # qsan = self._mem_aprend.q(sn, an)
-        # Diferença temporal
-        # delta = r + self._gama * qsan - qsa
-        # Atualizar valor Q(s, a)
-        # q = qsa + self._alfa * delta
-        # Atualizar memória de aprendizagem
-        # self._mem_aprend.actualizar(s, a, q)
-
         super().aprender(s, a, r, sn, an)
 
         # Criar experiência
@@ -117,7 +104,7 @@ class QME(QLearning):
 
         # Amostrar da memória de experiência
         amostras = self.__memoria_experiencia.amostrar(self.__num_sim)
-
+        # Simular episódio com as amostras
         for (s, a, r, sn) in amostras:
             super().aprender(s, a, r, sn)
 

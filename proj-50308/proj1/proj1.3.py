@@ -1,3 +1,16 @@
+'''
+ # @ Author: Sofia Condesso
+ # @ Description:
+    O objetivo deste script é implementar uma rede neuronal multicamada,
+    utilizando a plataforma Keras.
+    Implementação e estudo do operador XOR, considerando os seguintes
+aspectos:
+• Efeito da taxa de aprendizagem
+• Efeito da introdução de um termo de momento
+• Efeito da apresentação das amostras de treino com ordem fixa ou aleatória
+ '''
+
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import SGD

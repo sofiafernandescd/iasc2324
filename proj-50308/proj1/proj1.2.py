@@ -1,9 +1,11 @@
 '''
- # @ Author: Your name
- # @ Create Time: 2023-10-05 23:27:41
- # @ Modified by: Your name
- # @ Modified time: 2023-10-19 23:00:49
+ # @ Author: Sofia Condesso
  # @ Description:
+ O objetivo deste script é implementar uma rede neuronal multicamada com
+função de ativação do tipo degrau. A rede neuronal deve ser implementada
+com base em matrizes e vetores.
+– Implementação e teste dos operadores booleanos OR, AND e NOT
+– Implementação e teste do operador XOR
  '''
 
 import numpy as np

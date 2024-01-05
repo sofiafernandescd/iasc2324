@@ -10,8 +10,11 @@
 import numpy as np
 
 ## Definição do conjunto de entrada (quatro entradas do tipo [x1, x2])
-# Combinações para as quais queremos avaliar a função XOR
+# Combinações para as quais queremos avaliar a função XOR 
 conjunto_entrada = [[0, 0], [0, 1], [1, 0], [1, 1]]
+# Se estivessemos a fazer aprendizagem também poderiamos experimentar com nuvens de pontos vizinhos, o que nos permitia ter mais dados de treino e teste
+# E, por isso, um modelo mais ajustado e bem avaliado, do ponto de vista da forma geométrica tomada pelo problema XOR. Exemplo:
+# conjunto_entrada = [[0, 0], [0, 1], [1, 0], [1, 1], [0.1, 0.1], [0.1, 1.1], [1.1, 0.1], [1.1, 1.1], ...]
 print(f"Conjunto de entrada: \n{conjunto_entrada}\n")
 
 ## Definição dos pesos e pendores da primeira camada (2 neurónios)

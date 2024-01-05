@@ -1,3 +1,10 @@
+'''
+ # @ Autor: Sofia Condesso (50308) - MEIM
+ # @ Descrição: 
+ # Este script tem como objetivo implementar a função XOR com uma rede neuronal do tipo perceptrão. 
+ # A rede terá uma camada escondida e será representada por matrizes e vetores. 
+ # A função de ativação será a função degrau.
+ '''
 from ambiente import Ambiente
 from agente import AgenteAprendRef
 from mec_aprend_ref import MecAprendRef
@@ -31,8 +38,8 @@ class TesteAprendRef:
 # Executar teste
 if __name__ == "__main__":
 
-    NUM_AMBIENTE = 2
-    MAX_EPISOD = 100
+    NUM_AMBIENTE = 3
+    MAX_EPISOD = 10
 
     teste = TesteAprendRef()
     num_passos_episodio_qlearning = teste.testar(NUM_AMBIENTE, MAX_EPISOD)
@@ -50,7 +57,7 @@ if __name__ == "__main__":
     plt.legend()
     # desempenho QME
     plt.subplot(3, 1, 2)
-    plt.plot(num_passos_episodio_qme, label="QME")
+    plt.plot(num_passos_episodio_qme, label="Q-Leaning com memória de experiência")
     plt.xlabel("Episódio")
     plt.ylabel("Número de passos")
     plt.legend()
